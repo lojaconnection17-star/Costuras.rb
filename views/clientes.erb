@@ -1,0 +1,52 @@
+<div class="card">
+    <h2>👥 Clientes</h2>
+    
+    <form action="/clientes/novo" method="post" style="background: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h3>Cadastrar Novo Cliente</h3>
+        <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" name="nome" required>
+        </div>
+        <div class="form-group">
+            <label>Telefone:</label>
+            <input type="text" name="telefone" required>
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email">
+        </div>
+        <div class="form-group">
+            <label>Endereço:</label>
+            <textarea name="endereco"></textarea>
+        </div>
+        <button type="submit" class="btn">💾 Salvar Cliente</button>
+    </form>
+
+    <h3>Lista de Clientes</h3>
+    <% if @clientes.any? %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Cadastro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @clientes.each do |cliente| %>
+                    <tr>
+                        <td>#<%= cliente['id'] %></td>
+                        <td><strong><%= cliente['nome'] %></strong></td>
+                        <td><%= cliente['telefone'] %></td>
+                        <td><%= cliente['email'] || '-' %></td>
+                        <td><%= Date.parse(cliente['data_cadastro']).strftime('%d/%m/%Y') rescue cliente['data_cadastro'] %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% else %>
+        <p>Nenhum cliente cadastrado ainda.</p>
+    <% end %>
+</div>
